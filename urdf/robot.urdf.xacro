@@ -1,0 +1,96 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="r100-0600">
+
+  <!-- Common -->
+  <xacro:include filename="$(find clearpath_platform_description)/urdf/common.urdf.xacro"/>
+
+  <!-- Platform -->
+  <xacro:include filename="$(find clearpath_platform_description)/urdf/r100/r100.urdf.xacro"/>
+  <xacro:r100 wheel="default"/>
+
+
+  <!-- Attachments -->
+
+
+  <!-- Links -->
+
+  <xacro:include filename="$(find clearpath_platform_description)/urdf/links/frame.urdf.xacro"/>
+  <xacro:frame name="arm_mount_left" parent_link="base_link">
+    <origin xyz="0.14999 0.10483 1.30903" rpy="-0.7854 1.5708 0.0"/>
+  </xacro:frame>
+
+  <xacro:include filename="$(find clearpath_platform_description)/urdf/links/frame.urdf.xacro"/>
+  <xacro:frame name="arm_mount_right" parent_link="base_link">
+    <origin xyz="0.14999 -0.10428 1.30903" rpy="0.7854 1.5708 0.0"/>
+  </xacro:frame>
+
+  <xacro:include filename="$(find clearpath_platform_description)/urdf/links/mesh.urdf.xacro"/>
+  <xacro:mesh name="enclosure" parent_link="default_mount" material_name="clearpath_dark_grey" visual="package://tum08_ridgeback_description/meshes/enclosure.STL">
+    <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+  </xacro:mesh>
+
+  <xacro:include filename="$(find clearpath_platform_description)/urdf/links/mesh.urdf.xacro"/>
+  <xacro:mesh name="left_wifi_antenna" parent_link="default_mount" material_name="clearpath_dark_grey" visual="package://tum08_ridgeback_description/meshes/wifi_antenna.STL">
+    <origin xyz="-0.16525 0.355 0.19795" rpy="0.0 0.0 0.0"/>
+  </xacro:mesh>
+
+  <xacro:include filename="$(find clearpath_platform_description)/urdf/links/mesh.urdf.xacro"/>
+  <xacro:mesh name="right_wifi_antenna" parent_link="default_mount" material_name="clearpath_dark_grey" visual="package://tum08_ridgeback_description/meshes/wifi_antenna.STL">
+    <origin xyz="-0.16525 -0.355 0.19795" rpy="0.0 0.0 0.0"/>
+  </xacro:mesh>
+
+  <xacro:include filename="$(find clearpath_platform_description)/urdf/links/mesh.urdf.xacro"/>
+  <xacro:mesh name="autec_antenna" parent_link="default_mount" material_name="clearpath_dark_grey" visual="package://tum08_ridgeback_description/meshes/autec_antenna.STL">
+    <origin xyz="-0.0815 -0.355 0.19795" rpy="0.0 0.0 0.0"/>
+  </xacro:mesh>
+
+
+  <!-- Mounts -->
+
+
+  <!-- Sensors -->
+
+  <!-- lidar2d_0 -->
+  <xacro:include filename="$(find clearpath_sensors_description)/urdf/hokuyo_ust.urdf.xacro"/>
+  <xacro:hokuyo_ust name="lidar2d_0" parent_link="chassis_link" ang_res="0.5" min_ang="-2.356" max_ang="2.356" min_range="0.05" max_range="25.0" update_rate="50">
+    <origin xyz="0.3922 0.0 0.1856" rpy="0.0 0.0 0.0"/>
+  </xacro:hokuyo_ust>
+
+  <!-- lidar2d_1 -->
+  <xacro:include filename="$(find clearpath_sensors_description)/urdf/hokuyo_ust.urdf.xacro"/>
+  <xacro:hokuyo_ust name="lidar2d_1" parent_link="chassis_link" ang_res="0.5" min_ang="-2.356" max_ang="2.356" min_range="0.05" max_range="25.0" update_rate="50">
+    <origin xyz="-0.3922 0.0 0.1856" rpy="0.0 0.0 3.14159"/>
+  </xacro:hokuyo_ust>
+
+
+  <!-- Manipulators -->
+
+  <!-- arm_0 -->
+  <xacro:include filename="$(find clearpath_manipulators_description)/urdf/arm/franka.urdf.xacro"/>
+  <xacro:franka name="arm_0" parent_link="arm_mount_left_link" robot_ip="192.168.131.40" arm_id="fr3" ros2_control="$(arg arm_0_control)">
+    <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.7854"/>
+  </xacro:franka>
+
+  <!-- arm_1 -->
+  <xacro:include filename="$(find clearpath_manipulators_description)/urdf/arm/franka.urdf.xacro"/>
+  <xacro:franka name="arm_1" parent_link="arm_mount_right_link" robot_ip="192.168.131.41" arm_id="fr3" ros2_control="$(arg arm_1_control)">
+    <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 -0.7854"/>
+  </xacro:franka>
+
+  <!-- arm_0_gripper -->
+  <xacro:include filename="$(find clearpath_manipulators_description)/urdf/gripper/franka_gripper.urdf.xacro"/>
+  <xacro:franka_gripper name="arm_0_gripper" parent_link="arm_0_fr3_link8" arm_id="fr3">
+    <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+  </xacro:franka_gripper>
+
+  <!-- arm_1_gripper -->
+  <xacro:include filename="$(find clearpath_manipulators_description)/urdf/gripper/franka_gripper.urdf.xacro"/>
+  <xacro:franka_gripper name="arm_1_gripper" parent_link="arm_1_fr3_link8" arm_id="fr3">
+    <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+  </xacro:franka_gripper>
+
+
+  <!-- Extras -->
+
+
+</robot>

@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="r100-0600">
+  <!-- Manipulators -->
+
+  <!-- arm_0 -->
+  <xacro:include filename="$(find clearpath_manipulators_description)/urdf/arm/franka.urdf.xacro"/>
+  <xacro:franka name="arm_0" parent_link="arm_mount_left_link" robot_ip="192.168.131.40" arm_id="fr3" ros2_control="$(arg arm_0_control)">
+    <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.7854"/>
+  </xacro:franka>
+
+  <!-- arm_1 -->
+  <xacro:include filename="$(find clearpath_manipulators_description)/urdf/arm/franka.urdf.xacro"/>
+  <xacro:franka name="arm_1" parent_link="arm_mount_right_link" robot_ip="192.168.131.41" arm_id="fr3" ros2_control="$(arg arm_1_control)">
+    <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 -0.7854"/>
+  </xacro:franka>
+
+  <!-- arm_0_gripper -->
+  <xacro:include filename="$(find clearpath_manipulators_description)/urdf/gripper/franka_gripper.urdf.xacro"/>
+  <xacro:franka_gripper name="arm_0_gripper" parent_link="arm_0_fr3_link8" arm_id="fr3">
+    <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+  </xacro:franka_gripper>
+
+  <!-- arm_1_gripper -->
+  <xacro:include filename="$(find clearpath_manipulators_description)/urdf/gripper/franka_gripper.urdf.xacro"/>
+  <xacro:franka_gripper name="arm_1_gripper" parent_link="arm_1_fr3_link8" arm_id="fr3">
+    <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+  </xacro:franka_gripper>
+
+</robot>
