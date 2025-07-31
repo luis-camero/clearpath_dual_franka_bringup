@@ -1,4 +1,4 @@
-r100_0600/franka_0:
+/**/franka_0:
   controller_manager:
     ros__parameters:
       update_rate: 1000

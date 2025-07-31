@@ -54,9 +54,9 @@ def generate_launch_description():
     pkg_clearpath_dual_franka_bringup = FindPackageShare('clearpath_dual_franka_bringup')
 
     # Launch Arguments
-    arg_setup_path = DeclareLaunchArgument(
-        'setup_path',
-        default_value='/etc/clearpath/'
+    arg_robot_urdf = DeclareLaunchArgument(
+        'robot_urdf',
+        default_value='/etc/clearpath/robot.urdf.xacro'
     )
 
     arg_use_sim_time = DeclareLaunchArgument(
@@ -103,7 +103,7 @@ def generate_launch_description():
         description='Franka name'
     )
     # Launch Configurations
-    setup_path = LaunchConfiguration('setup_path')
+    robot_urdf = LaunchConfiguration('robot_urdf')
     use_sim_time = LaunchConfiguration('use_sim_time')
     namespace = LaunchConfiguration('namespace')
     control_delay = LaunchConfiguration('control_delay')
@@ -131,7 +131,7 @@ def generate_launch_description():
               PythonLaunchDescriptionSource(launch_file_manipulators_description),
               launch_arguments=[
                   ('namespace', namespace),
-                  ('setup_path', setup_path),
+                  ('robot_urdf', robot_urdf),
                   ('use_sim_time', use_sim_time),
                   ('franka_0_control', franka_0_control),
                   ('franka_1_control', franka_1_control)
@@ -154,7 +154,7 @@ def generate_launch_description():
     )
 
     ld = LaunchDescription()
-    ld.add_action(arg_setup_path)
+    ld.add_action(arg_robot_urdf)
     ld.add_action(arg_use_sim_time)
     ld.add_action(arg_namespace)
     ld.add_action(arg_control_delay)

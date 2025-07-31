@@ -42,8 +42,10 @@ from clearpath_config.common.utils.yaml import read_yaml
 
 
 def launch_setup(context, *args, **kwargs):
-    namespace = LaunchConfiguration('namespace')
-    parameters = LaunchConfiguration('parameters')
+    namespace = LaunchConfiguration('namespace').perform(context)
+    parameters = LaunchConfiguration('parameters').perform(context)
+
+    print(10 * f"{parameters}\n")
 
     # Controllers
     config_control = PathJoinSubstitution([

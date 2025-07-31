@@ -1,5 +1,8 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="r100-0600">
+  <xacro:arg name="arm_0_control" default="false"/>
+  <xacro:arg name="arm_1_control" default="false"/>
+
   <!-- Manipulators -->
 
   <!-- arm_0 -->
